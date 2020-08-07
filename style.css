@@ -1,0 +1,79 @@
+/*
+:root {
+    --eerieblack: #1A1A1A;
+    --rosemadder: #DA2C38;
+    --bluepantone: #3423A6;
+    --mediumaquamarine: #69DC9E;
+    --babypowder: #F0F4EF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--eerieblack);
+}
+
+.container {
+    display: grid;
+    grid-template: 5vh 90vh 5vh / 10vw 80vw 10vw;
+}
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: grid;
+    grid-template: 10vh 80vh 10vh / 100vw;
+}
+
+.holder {
+    background-color: white;
+    display: grid;
+    grid-template: 1fr / 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+header {
+    background-color: tomato;
+    grid-row: 1 / 2;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+footer {
+    background-color: tomato;
+    grid-row: 3 / 4;
+    padding-left: 250px;
+    padding-right: 250px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    justify-items: center;
+}
+
+button {
+
+}
+
+#clearBtn {
+
+}
+
+#bwBtn {
+
+}
+
+#rgbBtn {
+
+}
+
+#gradBtn {
+
+}
