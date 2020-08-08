@@ -5,20 +5,30 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="style.css">
-        <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+        <!-- Import Lato -->
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <!-- Import Press Start 2P -->
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     </head>
     <body>
         <div class="container">
             <header id="header">
+                <h1>Etch-a-Sketch</h1>
+                <h6>by Sanjana H.</h6>
+            </header>
+
+            <div class="buttonBar">
                 <button id="clearBtn">Clear grid</button>
                 <button id="bwBtn">New B&W Drawing</button>
                 <button id="rgbBtn">New RGB Drawing</button>
                 <button id="gradBtn">New RGB Shaded Drawing</button>
                 <button id="textBtn">New Text Drawing</button>
-            </header>
+                <button id="vwBtn">New Vaporwave Drawing</button>
+            </div>
 
             <div class="holder"></div>
+
+            <footer><p>Check out the source code <a href="https://github.com/error34043/etch-a-sketch">here</a>.</p></footer>
         </div>
 
         <script src="script.js"></script>

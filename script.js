@@ -1,14 +1,20 @@
-//Set the active color fill mode. 0 is black, 1 is random RGB,  2 is RGB shading, and 3 is text fill.
+//Set the active color fill mode. 0 is black, 1 is random RGB,  2 is RGB shading, 3 is text fill, and 4 is vaporwave mode.
 let currentMode = 0;
+
+//Setting values to required variables
 const resetBtn = document.querySelector('#clearBtn');
 const bwBtn = document.querySelector('#bwBtn');
 const rgbBtn = document.querySelector('#rgbBtn');
 const gradBtn = document.querySelector('#gradBtn');
 const textBtn = document.querySelector('#textBtn');
+const vwBtn = document.querySelector('#vwBtn');
 const holder = document.querySelector('.holder');
 
-//Array to all available letters
+//Array of all available letters for use in text fill
 const alphabetArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+//Array of vaporwave color codes for use in vaporwave mode
+const vwColors = ['#FF71CE', '#01CDFE', '#05FFA1', '#B967FF', '#FFFB96', '#F927F5', '#979BF5', '#765BFF', '#00F1FF', '#000000'];
 
 //Make a new grid
 let createGrid = (gridSize) => {
@@ -19,7 +25,7 @@ let createGrid = (gridSize) => {
     let i = 0;
     while (i < Math.pow(gridSize, 2)) {
         const gridBox = document.createElement('div');
-        gridBox.setAttribute('style', 'height: auto; width: auto; outline: none; display: grid; justify-items: center; align-items: center; font-family: "Lato", sans-serif; font-size: 0.75em');
+        gridBox.setAttribute('style', 'background-color: white; height: auto; width: auto; outline: none; display: grid; justify-items: center; align-items: center; font-family: "Lato", sans-serif; font-size: 0.75em');
         gridBox.className = 'gridBox';
         gridBox.id = i;
         grid.appendChild(gridBox);
@@ -30,6 +36,25 @@ let createGrid = (gridSize) => {
         allGridBoxes[i].addEventListener('mouseenter', fillColor);
         allGridBoxes[i].setAttribute('data-count', 10);
     };
+};
+
+//Reset button clears existing grid
+resetBtn.addEventListener('click', () => {
+    const allGridBoxes = document.querySelectorAll('.gridBox');
+    for (let i = 0; i < allGridBoxes.length; i++) {
+        allGridBoxes[i].style.backgroundColor = 'white';
+    };
+});
+
+//Function to remove existing grid and build new one
+const remakeGrid = newGridSize => {
+    const grid = document.querySelector('#grid');
+    grid.remove();
+    const allGridBoxes = document.querySelectorAll('.gridBox');
+    for (let i = 0; i < allGridBoxes.length; i++) {
+        allGridBoxes[i].remove();
+    };
+    createGrid(newGridSize);
 };
 
 //Generate random RGB color
@@ -59,40 +84,35 @@ const fillColor = e => {
         };
         console.log(count);
     } else if (currentMode === 3) {
-        let randomIndex = Math.floor(Math.random() * 53);
+        let randomIndex = Math.floor(Math.random() * 52);
         let randomLetter = alphabetArr[randomIndex];
         e.target.textContent = randomLetter;
         e.target.style.color = randomRGB();
+    } else if (currentMode === 4) {
+        let randomIndex = Math.floor(Math.random() * 10);
+        let randomColor = vwColors[randomIndex];
+        e.target.style.backgroundColor = randomColor;
     };
 };
 
-//Clear old grid on 'Reset grid' button click
-const resetGrid = (newGridSize = 16) => {
+//Take a value for a new grid size and build the corresponding grid on button click
+const resetGrid = () => {
     if (currentMode === 3) {
-        newGridSize = prompt('Enter a size for your new grid (under 32): ',16);
-    } else {
-        newGridSize = prompt('Enter a size for your new grid: ',16);
-    };
-    if (isNaN(newGridSize) != false) {
-        alert('Please enter a number. Click a button to try again.');
-    } else {
-        const grid = document.querySelector('#grid');
-        grid.remove();
-        const allGridBoxes = document.querySelectorAll('.gridBox');
-        for (let i = 0; i < allGridBoxes.length; i++) {
-            allGridBoxes[i].remove();
+        newGridSize = prompt('Enter a size for your new grid (under 33): ', 16);
+        if (isNaN(newGridSize) != false || newGridSize === null || newGridSize > 32) {
+            alert('Please enter a number that is under 32. Click a button to try again.');
+        } else {
+            remakeGrid(newGridSize);
         };
-        createGrid(newGridSize);
+    } else {
+        newGridSize = prompt('Enter a size for your new grid (under 101): ', 16);
+        if (isNaN(newGridSize) != false || newGridSize === null || newGridSize > 100) {
+            alert('Please enter a number that is under 101. Click a button to try again.');
+        } else {
+            remakeGrid(newGridSize);
+        };
     };
 };
-
-//Reset button clears existing grid
-resetBtn.addEventListener('click', () => {
-    const allGridBoxes = document.querySelectorAll('.gridBox');
-    for (let i = 0; i < allGridBoxes.length; i++) {
-        allGridBoxes[i].style.backgroundColor = 'white';
-    };
-});
 
 //Button to set back mode
 bwBtn.addEventListener('click', () => {
@@ -106,6 +126,7 @@ rgbBtn.addEventListener('click', () => {
     resetGrid();
 });
 
+//Button to set RGB shading mode
 gradBtn.addEventListener('click', e => {
     currentMode = 2;
     resetGrid();
@@ -115,7 +136,13 @@ gradBtn.addEventListener('click', e => {
 textBtn.addEventListener('click', () => {
     currentMode = 3;
     resetGrid();
-})
+});
+
+//Button to set vaporwave mode
+vwBtn.addEventListener('click', () => {
+    currentMode = 4;
+    resetGrid();
+});
 
 //Create initial 16x16 grid on load
 createGrid(16);
