@@ -43,6 +43,7 @@ resetBtn.addEventListener('click', () => {
     const allGridBoxes = document.querySelectorAll('.gridBox');
     for (let i = 0; i < allGridBoxes.length; i++) {
         allGridBoxes[i].style.backgroundColor = 'white';
+        allGridBoxes[i].style.filter = `brightness(100%)`;
     };
 });
 
