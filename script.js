@@ -44,6 +44,7 @@ resetBtn.addEventListener('click', () => {
     for (let i = 0; i < allGridBoxes.length; i++) {
         allGridBoxes[i].style.backgroundColor = 'white';
         allGridBoxes[i].style.filter = `brightness(100%)`;
+        allGridBoxes[i].setAttribute('data-count', 10);
     };
 });
 
